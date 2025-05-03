@@ -3,6 +3,11 @@ import fsp from "fs/promises";
 import path from "path";
 
 export async function handleFileOps(command, args, currentDir) {
+  const validCommand = ["cat", "add", "mkdir", "rn", "rm", "cp", "mv"];
+  if (!validCommand.includes(command)) {
+    throw new Error("Invalid navigation command");
+  }
+
   const resolvePath = (p) => path.resolve(currentDir, p);
 
   switch (command) {
