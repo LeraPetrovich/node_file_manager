@@ -2,6 +2,7 @@ import os from "os";
 import readline from "readline";
 import { handleNavigation } from "./commands/navigation.js";
 import { handleFileOps } from "./commands/fileOps.js";
+import { handleOsCommands } from "./commands/osInfo.js";
 
 const usernameArg = process.argv.find((arg) => arg.startsWith("--username="));
 const username = usernameArg ? usernameArg.split("=")[1] : "Anonymous";
@@ -42,9 +43,9 @@ rl.on("line", async (input) => {
         case "mkdir":
           await handleFileOps(command, args, currentDir);
           break;
-        // case "os":
-        //   handleOsCommands(args[0]);
-        //   break;
+        case "os":
+          handleOsCommands(args[0]);
+          break;
         // case "hash":
         //   await handleHash(args[0], currentDir);
         //   break;
