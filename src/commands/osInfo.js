@@ -2,7 +2,7 @@ import os from "os";
 
 export function handleOsCommands(arg) {
   const validCommands = ["EOL", "cpus", "homedir", "username", "architecture"];
-  if (!validCommands.includes((item) => `--${item}` === arg)) {
+  if (!validCommands.find((item) => `--${item}` === arg)) {
     throw new Error();
   }
 
