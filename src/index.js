@@ -3,6 +3,8 @@ import readline from "readline";
 import { handleNavigation } from "./commands/navigation.js";
 import { handleFileOps } from "./commands/fileOps.js";
 import { handleOsCommands } from "./commands/osInfo.js";
+import { handleHash } from "./commands/hash.js";
+import { handleCompress } from "./commands/compress.js";
 
 const usernameArg = process.argv.find((arg) => arg.startsWith("--username="));
 const username = usernameArg ? usernameArg.split("=")[1] : "Anonymous";
@@ -46,13 +48,13 @@ rl.on("line", async (input) => {
         case "os":
           handleOsCommands(args[0]);
           break;
-        // case "hash":
-        //   await handleHash(args[0], currentDir);
-        //   break;
-        // case "compress":
-        // case "decompress":
-        //   await handleCompress(command, args, currentDir);
-        //   break;
+        case "hash":
+          await handleHash(args[0], currentDir);
+          break;
+        case "compress":
+        case "decompress":
+          await handleCompress(command, args, currentDir);
+          break;
         case ".exit":
           exitApp();
           return;
@@ -60,7 +62,8 @@ rl.on("line", async (input) => {
           console.log("Invalid input");
       }
       sendCurrentDir(currentDir);
-    } catch {
+    } catch(error) {
+      console.log(error)
       console.log("Operation failed");
     }
   }
